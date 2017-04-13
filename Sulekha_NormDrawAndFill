@@ -35,7 +35,7 @@ fillbefore = NULL, fillbetween = NULL, fillwithin = NULL,thickness=120)
   
 }
 
-Examples:
+#Examples:
 normdrawandfill(20000,5102,fillwithin = c(10000,30000))
 
 normdrawandfill(20000,5102,fillbefore = 20000)
