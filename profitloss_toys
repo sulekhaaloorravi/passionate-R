@@ -1,7 +1,7 @@
 ##############################################################################################################
 #A function to calculate Profit and Loss for suggested quantities based on different sales scenarios
 #Created by Sulekha Aloorravi
-#https://github.com/sulekhaaloorravi/passionate-R/edit/master/
+#https://github.com/sulekhaaloorravi/passionate-R/blob/master/profitloss_toys
 ##############################################################################################################
 #Profit/Loss calculation of demand
 toyspnl = function(cp = NULL,sp = NULL,ssp = NULL,cs = NULL,q = NULL,horz=TRUE,barlabel=1)
