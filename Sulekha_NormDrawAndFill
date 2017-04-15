@@ -1,45 +1,76 @@
-##############################################################################################################
-#A function to draw Normal distribution density curve (bell curve) and highlight different areas of distribution 
-#by filling the area with chosen color
-#Created by Sulekha Aloorravi
-##############################################################################################################
 normdrawandfill = function(mean=0,sd=1,points=200,linecolor="orange",fillcolor = "blue",fillafter = NULL,
-fillbefore = NULL, fillbetween = NULL, fillwithin = NULL,thickness=120)
+fillbefore = NULL, fillbetween = NULL, fillwithin = NULL,thickness=40, xlabel = NULL, ylabel = NULL, axiscol = "red")
 {
   startx = mean - 4*sd
   endx = mean + 4*sd
   xplot = seq(startx,endx, length = points)
   normcurve = dnorm(xplot,mean,sd)
-  plot(xplot,normcurve, type = "l", col = linecolor)
+  plot(xplot,normcurve, type = "l", col = linecolor, xlab = xlabel, ylab = ylabel)
   
   if(is.null(fillbefore)==FALSE)
   {
     before = xplot[xplot<fillbefore]
     areabefore = normcurve[xplot<fillbefore]
-    polygon(c(before,rev(before)),c(rep(0,length(before)),rev(areabefore)),col=fillcolor, border = "red", density = thickness)
+    polygon(c(before,rev(before)),c(rep(0,length(before)),rev(areabefore)),col=fillcolor, border = "pink", density = thickness)
   }
   
   if(is.null(fillafter)==FALSE)
   {
     after = xplot[xplot>fillafter]
     areaafter = normcurve[xplot>fillafter]
-    polygon(c(after,rev(after)),c(rep(0,length(after)),rev(areaafter)),col=fillcolor, border = "red", density = thickness)
+    polygon(c(after,rev(after)),c(rep(0,length(after)),rev(areaafter)),col=fillcolor, border = "pink", density = thickness)
   }
   
   if(is.null(fillwithin)==FALSE)
   {
     within = xplot[xplot>fillwithin[1]&xplot<fillwithin[2]]
     areawithin = normcurve[xplot>fillwithin[1]&xplot<fillwithin[2]]
-    polygon(c(within,rev(within)),c(rep(0,length(within)),rev(areawithin)),col=fillcolor, border = "red", density = thickness)
+    polygon(c(within,rev(within)),c(rep(0,length(within)),rev(areawithin)),col=fillcolor, border = "pink", density = thickness)
   }
+  
+  segments(mean,0,0,length(normcurve))
+  viewMean = paste("Mean = ", mean,"  StdDev = ", sd)
+  axis(1,at=c(mean,mean+sd), col = axiscol, lty = 2, lwd = 2, outer = FALSE, tick=TRUE)
+  text(mean,0, labels = viewMean, font = 2, cex = 0.8)
   
 }
 
-#Examples:
-normdrawandfill(20000,5102,fillwithin = c(10000,30000))
+#1. Normal Distribution Curve
+normdrawandfill(20000,5102,linecolor = "blue", xlab = "Quantity of Demand", ylab = "Probability Density")
+   
+#P(10000<X<30000)
+normdrawandfill(20000,5102,linecolor = "blue", xlab = "Quantity of Demand", ylab = "Probability Density",fillwithin = c(10000,30000), fillcolor = "cyan")
+d1 = paste("  P(10000<X<30000)=", "95%")
+text(30000,0.00006,d1, font = 2, cex = 0.8)
 
-normdrawandfill(20000,5102,fillbefore = 20000)
+#P(X<10000)
+normdrawandfill(20000,5102,linecolor = "blue", xlab = "Quantity of Demand", ylab = "Probability Density",fillbefore = 10000, fillcolor = "lightgreen")
+d1 = paste("  P(X<10000)=", "0.025%")
+text(8000,0.00006,d1, font = 2, cex = 0.8)
 
-normdrawandfill(20000,5102,fillafter = 28000)
+#P(X>30000)
+normdrawandfill(20000,5102,linecolor = "blue", xlab = "Quantity of Demand", ylab = "Probability Density",fillafter = 30000, fillcolor = "red")
+d1 = paste("  P(X>30000)=", "0.025%")
+text(30000,0.00006,d1, font = 2, cex = 0.8)
 
-normdrawandfill(20000,5102)
+#2. Calculate Probability of Stock out of order
+#P(Demand)>15000
+D1 = (1-pnorm(15000,20000,5102))*100
+d1 = paste("  P(Demand)>15000=", round(D1),"%")
+normdrawandfill(20000,5102,fillafter = 15000, fillcolor = "cyan", linecolor = "blue",xlab = "Quantity of Demand", ylab = "Probability Density")
+text(30000,0.00006,d1, font = 2, cex = 0.8)
+#P(Demand)>18000
+D1 = (1-pnorm(18000,20000,5102))*100
+d1 = paste("  P(Demand)>18000=", round(D1),"%")
+normdrawandfill(20000,5102,fillafter = 18000, fillcolor = "lightgreen", linecolor = "blue",xlab = "Quantity of Demand", ylab = "Probability Density")
+text(30000,0.00006,d1, font = 2, cex = 0.8)
+#P(Demand)>24000
+D1 = (1-pnorm(24000,20000,5102))*100
+d1 = paste("  P(Demand)>24000=", round(D1),"%")
+normdrawandfill(20000,5102,fillafter = 24000, fillcolor = "skyblue", linecolor = "blue",xlab = "Quantity of Demand", ylab = "Probability Density")
+text(30000,0.00006,d1, font = 2, cex = 0.8)
+#P(Demand)>28000
+D1 = (1-pnorm(28000,20000,5102))*100
+d1 = paste("  P(Demand)>28000=", round(D1),"%")
+normdrawandfill(20000,5102,fillafter = 28000, fillcolor = "pink", linecolor = "blue",xlab = "Quantity of Demand", ylab = "Probability Density")
+text(30000,0.00006,d1, font = 2, cex = 0.8)
