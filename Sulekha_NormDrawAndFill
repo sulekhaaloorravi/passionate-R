@@ -1,3 +1,10 @@
+##############################################################################################################
+#A function to draw Normal distribution density curve (bell curve) and highlight different areas of distribution 
+#by filling the area with chosen color and displaying Probability percentages
+#Created by Sulekha Aloorravi
+#https://github.com/sulekhaaloorravi/passionate-R/edit/master/Sulekha_NormDrawAndFill
+##############################################################################################################
+
 normdrawandfill = function(mean=0,sd=1,points=200,linecolor="orange",fillcolor = "blue",fillafter = NULL,
 fillbefore = NULL, fillbetween = NULL, fillwithin = NULL,thickness=40, xlabel = NULL, ylabel = NULL, axiscol = "red")
 {
