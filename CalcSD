@@ -1,0 +1,10 @@
+#StandardDeviation.R
+#Calculate Standard Deviation
+Xd = 30000
+Mean = 20000
+Prob = 0.975
+Z = qnorm(Prob)
+Z = round(Z,2)
+StandardDeviation = (Xd-Mean)/Z
+StandardDeviation = round(StandardDeviation,0)
+StandardDeviation
