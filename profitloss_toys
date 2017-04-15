@@ -1,0 +1,41 @@
+##############################################################################################################
+#A function to calculate Profit and Loss for suggested quantities based on different sales scenarios
+#Created by Sulekha Aloorravi
+#https://github.com/sulekhaaloorravi/passionate-R/edit/master/
+##############################################################################################################
+#Profit/Loss calculation of demand
+toyspnl = function(cp = NULL,sp = NULL,ssp = NULL,cs = NULL,q = NULL,horz=TRUE,barlabel=1)
+{
+  costprice = cp
+  salesprice = sp
+  surplussalesprice = ssp
+  profit = salesprice-costprice
+  loss = surplussalesprice-costprice
+  case = cs
+  quantity = q
+  statement = c()
+  for(i in 1:length(case))
+  {
+    if(q>case[i]){
+      qcase = (case[i]*profit) + ((q-case[i])*loss)
+    }else{
+      qcase = q*profit
+      
+    }
+    print(paste("Profit/Loss at ", case[i], "with Quanity - ",q,": ",qcase))
+    statement[i]=qcase
+    i = i+1
+    
+  }  
+  statement = c(q,statement)
+  names(statement) = c("Quantity",paste("C:",case))
+  statement
+  bp = barplot(statement,space=NULL,horiz=horz,col = rainbow(length(statement)), main = "Profit/Loss at each case", ylab = "Quantity vs Sales scenario", xlab = "Profit/Loss", axis.lty = 1)
+  #position = if(statement<0){3}else{1}
+  text(x=bp,y=statement,labels=round(statement,0), cex=0.8, pos = barlabel)
+}
+
+toyspnl(cp = 16, sp = 24, ssp = 5, cs = c(10000,20000,30000),q = 15000)
+toyspnl(cp = 16, sp = 24, ssp = 5, cs = c(10000,20000,30000),q = 18000)
+toyspnl(cp = 16, sp = 24, ssp = 5, cs = c(10000,20000,30000),q = 24000)
+toyspnl(cp = 16, sp = 24, ssp = 5, cs = c(10000,20000,30000),q = 28000)
