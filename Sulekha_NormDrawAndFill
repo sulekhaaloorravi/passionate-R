@@ -5,6 +5,7 @@
 #https://github.com/sulekhaaloorravi/passionate-R/blob/master/Sulekha_NormDrawAndFill
 ##############################################################################################################
 
+
 normdrawandfill = function(mean=0,sd=1,points=200,linecolor="orange",fillcolor = "blue",fillafter = NULL,
 fillbefore = NULL, fillbetween = NULL, fillwithin = NULL,thickness=40, xlabel = NULL, ylabel = NULL, axiscol = "red")
 {
@@ -61,23 +62,55 @@ d1 = paste("  P(X>30000)=", "0.025%")
 text(30000,0.00006,d1, font = 2, cex = 0.8)
 
 #2. Calculate Probability of Stock out of order
-#P(Demand)>15000
+#P(Demand>15000)
 D1 = (1-pnorm(15000,20000,5102))*100
-d1 = paste("  P(Demand)>15000=", round(D1),"%")
+d1 = paste("  P(Demand>15000)=", round(D1),"%")
 normdrawandfill(20000,5102,fillafter = 15000, fillcolor = "cyan", linecolor = "blue",xlab = "Quantity of Demand", ylab = "Probability Density")
 text(30000,0.00006,d1, font = 2, cex = 0.8)
-#P(Demand)>18000
+#P(Demand>18000)
 D1 = (1-pnorm(18000,20000,5102))*100
-d1 = paste("  P(Demand)>18000=", round(D1),"%")
+d1 = paste("  P(Demand>18000)=", round(D1),"%")
 normdrawandfill(20000,5102,fillafter = 18000, fillcolor = "lightgreen", linecolor = "blue",xlab = "Quantity of Demand", ylab = "Probability Density")
 text(30000,0.00006,d1, font = 2, cex = 0.8)
-#P(Demand)>24000
+#P(Demand>24000)
 D1 = (1-pnorm(24000,20000,5102))*100
-d1 = paste("  P(Demand)>24000=", round(D1),"%")
+d1 = paste("  P(Demand>24000)=", round(D1),"%")
 normdrawandfill(20000,5102,fillafter = 24000, fillcolor = "skyblue", linecolor = "blue",xlab = "Quantity of Demand", ylab = "Probability Density")
 text(30000,0.00006,d1, font = 2, cex = 0.8)
-#P(Demand)>28000
+#P(Demand>28000)
 D1 = (1-pnorm(28000,20000,5102))*100
-d1 = paste("  P(Demand)>28000=", round(D1),"%")
+d1 = paste("  P(Demand>28000)=", round(D1),"%")
 normdrawandfill(20000,5102,fillafter = 28000, fillcolor = "pink", linecolor = "blue",xlab = "Quantity of Demand", ylab = "Probability Density")
+text(30000,0.00006,d1, font = 2, cex = 0.8)
+
+#P(20000>Demand<24000)
+D1 = (pnorm(20000,20000,5102))*100
+D2 = (pnorm(24000,20000,5102))*100
+D3 = D2-D1
+d1 = paste("  P(20000>Demand<24000)=", round(D3),"%")
+normdrawandfill(20000,5102,fillwithin = c(20000,24000), fillcolor = "pink", linecolor = "blue",xlab = "Quantity of Demand", ylab = "Probability Density")
+text(30000,0.00006,d1, font = 2, cex = 0.8)
+
+#P(Demand<24000)
+D1 = (pnorm(24000,20000,5102))*100
+d1 = paste("  P(Demand<24000)=", round(D1),"%")
+normdrawandfill(20000,5102,fillbefore = 24000, fillcolor = "pink", linecolor = "blue",xlab = "Quantity of Demand", ylab = "Probability Density")
+text(30000,0.00006,d1, font = 2, cex = 0.8)
+
+#Quantity expected for demand at 70%
+EQ = qnorm(0.70,20000,5102)
+d1 = paste("  Expected Quantity at 70%=", round(EQ))
+normdrawandfill(20000,5102,fillbefore = EQ, fillcolor = "pink", linecolor = "blue",xlab = "Quantity of Demand", ylab = "Probability Density")
+text(30000,0.00006,d1, font = 2, cex = 0.8)
+
+#Out of Stock at 70%
+D1 = (1-pnorm(22675,20000,5102))*100
+d1 = paste("  P(Demand>22675)=", round(D1),"%")
+normdrawandfill(20000,5102,fillafter = 22675, fillcolor = "skyblue", linecolor = "blue",xlab = "Quantity of Demand", ylab = "Probability Density")
+text(30000,0.00006,d1, font = 2, cex = 0.8)
+
+#Out of Stock at 25000
+D1 = (1-pnorm(25000,20000,5102))*100
+d1 = paste("  P(Demand>25000)=", round(D1),"%")
+normdrawandfill(20000,5102,fillafter = 25000, fillcolor = "skyblue", linecolor = "blue",xlab = "Quantity of Demand", ylab = "Probability Density")
 text(30000,0.00006,d1, font = 2, cex = 0.8)
