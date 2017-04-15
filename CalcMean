@@ -1,0 +1,4 @@
+#Mean.R
+#Calculate Mean
+X = c(0:40000)
+mean(X)
