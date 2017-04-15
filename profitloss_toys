@@ -22,7 +22,7 @@ toyspnl = function(cp = NULL,sp = NULL,ssp = NULL,cs = NULL,q = NULL,horz=TRUE,b
       qcase = q*profit
       
     }
-    print(paste("Profit/Loss at ", case[i], "with Quanity - ",q,": ",qcase))
+    print(paste("Profit/Loss at ", case[i], "with Quantity - ",q,": ",qcase))
     statement[i]=qcase
     i = i+1
     
